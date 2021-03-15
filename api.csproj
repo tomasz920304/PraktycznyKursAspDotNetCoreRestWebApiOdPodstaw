@@ -5,8 +5,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove=".gitattributes" />
-	  <None Remove=".gitignore" />
+		<None Remove=".gitattributes" />
+		<None Remove=".gitignore" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -16,6 +16,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
+		<PackageReference Include="NLog.Web.AspNetCore" Version="4.11.0" />
 	</ItemGroup>
 
 </Project>
