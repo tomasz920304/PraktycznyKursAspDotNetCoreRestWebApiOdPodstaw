@@ -11,11 +11,11 @@ namespace api.Services
 {
     public interface IRestaurantService
     {
-        bool Delete(int id);
+        RestaurantDto GetById(int id);
+        IEnumerable<RestaurantDto> GetAll();
         int Create(CreateRestaurantDto dto);
         bool Update(int id, UpdateRestaurantDto dto);
-        IEnumerable<RestaurantDto> GetAll();
-        RestaurantDto GetById(int id);
+        bool Delete(int id);
     }
 
     public class RestaurantService : IRestaurantService

@@ -21,19 +21,20 @@ namespace api.Controllers
             _restaurantService = restaurantService;
         }
 
-        [HttpDelete("{id}")]
-        public ActionResult Delete([FromRoute] int id)
+        [HttpGet("{id}")]
+        public ActionResult<RestaurantDto> Get([FromRoute] int id)
         {
-            var isDeleted = _restaurantService.Delete(id);
+            var restaurant = _restaurantService.GetById(id);
 
-            if (isDeleted)
-            {
-                return NoContent();
-            }
-            else
-            {
-                return NotFound();
-            }
+            return Ok(restaurant);
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<RestaurantDto>> GetAll()
+        {
+            var restaurantsDtos = _restaurantService.GetAll();
+
+            return Ok(restaurantsDtos);
         }
 
         [HttpPost]
@@ -69,20 +70,19 @@ namespace api.Controllers
             }
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<RestaurantDto>> GetAll()
+        [HttpDelete("{id}")]
+        public ActionResult Delete([FromRoute] int id)
         {
-            var restaurantsDtos = _restaurantService.GetAll();
+            var isDeleted = _restaurantService.Delete(id);
 
-            return Ok(restaurantsDtos);
-        }
-
-        [HttpGet("{id}")]
-        public ActionResult<RestaurantDto> Get([FromRoute] int id)
-        {
-            var restaurant = _restaurantService.GetById(id);
-
-            return Ok(restaurant);
+            if (isDeleted)
+            {
+                return NoContent();
+            }
+            else
+            {
+                return NotFound();
+            }
         }
     }
 }
