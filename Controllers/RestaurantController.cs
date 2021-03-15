@@ -49,6 +49,26 @@ namespace api.Controllers
             return Created($"/api/restaurant/{id}", null);
         }
 
+        [HttpPut("{id}")]
+        public ActionResult Update([FromBody] UpdateRestaurantDto dto, [FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var isUpdated = _restaurantService.Update(id, dto);
+
+            if (!isUpdated)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok();
+            }
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<RestaurantDto>> GetAll()
         {
