@@ -1,6 +1,10 @@
 using api.Entities;
 using api.Middleware;
+using api.Models;
+using api.Models.Validators;
 using api.Services;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,7 +35,7 @@ namespace api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
 
             services.AddDbContext<RestaurantDbContext>();
             //    (options => options.UseSqlServer(Configuration.GetConnectionString("RestaurantDbConnection")));
@@ -42,6 +46,7 @@ namespace api
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
             services.AddScoped<RequestTimeMiddleware>();
             services.AddSwaggerGen();
         }
