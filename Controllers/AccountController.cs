@@ -1,5 +1,7 @@
-﻿using api.Models;
+﻿using api.Entities;
+using api.Models;
 using api.Services;
+
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
