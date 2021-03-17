@@ -19,6 +19,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantAPI;
+using RestaurantAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,7 @@ namespace api
             });
 
             services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
+            services.AddScoped<IAuthorizationHandler, ResourceOperationRequirementHandler>();
 
             services.AddControllers().AddFluentValidation();
 
@@ -83,6 +85,8 @@ namespace api
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
             services.AddScoped<RequestTimeMiddleware>();
+            services.AddScoped<IUserContextService, UserContextService>();
+            services.AddHttpContextAccessor();
             services.AddSwaggerGen();
         }
 

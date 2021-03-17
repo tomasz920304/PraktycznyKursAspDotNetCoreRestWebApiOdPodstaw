@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace api.Controllers
@@ -49,6 +50,7 @@ namespace api.Controllers
         public ActionResult CreateRestaurant([FromBody] CreateRestaurantDto dto)
         {
             //var role = HttpContext.User.IsInRole("User");
+            //var userId =int.Parse(User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
             var id = _restaurantService.Create(dto);
 
