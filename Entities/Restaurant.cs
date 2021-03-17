@@ -18,7 +18,7 @@ namespace api.Entities
         public virtual User CreatedBy { get; set; }
 
         // one to one
-        public int AddressId { get; set; }
+        public int? AddressId { get; set; }
         public virtual Address Address { get; set; }
 
         // one to many
