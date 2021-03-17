@@ -1,3 +1,4 @@
+using api.Authorization;
 using api.Entities;
 using api.Middleware;
 using api.Models;
@@ -5,6 +6,7 @@ using api.Models.Validators;
 using api.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -62,8 +64,11 @@ namespace api
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("HasNationality", builder => builder.RequireClaim("Nationality", "German", "Polish"));
+                options.AddPolicy("Atleast20", builder => builder.AddRequirements(new MinimumAgeRequirement(20)));
 
             });
+
+            services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
 
             services.AddControllers().AddFluentValidation();
 
