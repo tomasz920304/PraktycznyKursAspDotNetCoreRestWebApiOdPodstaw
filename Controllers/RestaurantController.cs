@@ -34,6 +34,7 @@ namespace api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "HasNationality")]
         public ActionResult<IEnumerable<RestaurantDto>> GetAll()
         {
             var restaurantsDtos = _restaurantService.GetAll();
@@ -42,8 +43,13 @@ namespace api.Controllers
         }
 
         [HttpPost]
+        //[Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Manager")][Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Manager")]
         public ActionResult CreateRestaurant([FromBody] CreateRestaurantDto dto)
         {
+            //var role = HttpContext.User.IsInRole("User");
+
             var id = _restaurantService.Create(dto);
 
             return Created($"/api/restaurant/{id}", null);
